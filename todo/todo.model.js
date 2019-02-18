@@ -23,10 +23,20 @@ const completed = (id, changes) => {
     });
 };
 
+const clearCompleted = () => {
+  db("todos")
+    .where("completed", 1)
+    .del()
+    .then(() => {
+      get();
+    });
+};
+
 module.exports = {
   get,
   addTodo,
   remove,
   getById,
-  completed
+  completed,
+  clearCompleted
 };

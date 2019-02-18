@@ -61,4 +61,12 @@ route.put("/:id", (req, res) => {
     .catch(() => res.status(500).json({ message: "Server Error" }));
 });
 
+route.post("/completed", (req, res) => {
+  Todos.clearCompleted();
+
+  Todos.get()
+    .then(todos => res.json(todos))
+    .catch(() => res.status(500).json({ message: "Server Error" }));
+});
+
 module.exports = route;

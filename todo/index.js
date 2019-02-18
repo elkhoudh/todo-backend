@@ -8,6 +8,15 @@ route.get("/", (req, res) => {
     .catch(() => res.status(500).json({ message: "Server Error" }));
 });
 
+route.get("/:id", (req, res) => {
+  const { id } = req.params;
+  Todos.getById(id)
+    .then(todos => {
+      res.json(todos);
+    })
+    .catch(() => res.status(500).json({ message: "Server Error" }));
+});
+
 route.post("/", (req, res) => {
   const { task } = req.body;
   if (!task) {

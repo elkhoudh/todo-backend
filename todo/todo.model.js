@@ -14,9 +14,19 @@ const getById = id =>
     .where("id", id)
     .first();
 
+const completed = (id, changes) => {
+  db("todos")
+    .where("id", id)
+    .update(changes)
+    .then(() => {
+      get();
+    });
+};
+
 module.exports = {
   get,
   addTodo,
   remove,
-  getById
+  getById,
+  completed
 };

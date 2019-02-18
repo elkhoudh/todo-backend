@@ -50,4 +50,15 @@ route.delete("/:id", (req, res) => {
       res.status(500).json({ message: "Server Error" });
     });
 });
+
+route.put("/:id", (req, res) => {
+  const { id } = req.params;
+  const { completed } = req.body;
+
+  Todos.completed(id, { completed });
+  Todos.get()
+    .then(todos => res.json(todos))
+    .catch(() => res.status(500).json({ message: "Server Error" }));
+});
+
 module.exports = route;

@@ -4,7 +4,7 @@ const route = express.Router();
 
 route.get("/", (req, res) => {
   Todos.get()
-    .then(todos => res.json(todos))
+    .then(todos => res.json(todos.reverse()))
     .catch(() => res.status(500).json({ message: "Server Error" }));
 });
 
@@ -12,7 +12,7 @@ route.get("/:id", (req, res) => {
   const { id } = req.params;
   Todos.getById(id)
     .then(todos => {
-      res.json(todos);
+      res.json(todos.reverse());
     })
     .catch(() => res.status(500).json({ message: "Server Error" }));
 });
@@ -26,7 +26,7 @@ route.post("/", (req, res) => {
       .then(result => {
         if (result.length > 0) {
           Todos.get().then(todos => {
-            res.json(todos);
+            res.json(todos.reverse());
           });
         }
       })
@@ -40,7 +40,7 @@ route.delete("/:id", (req, res) => {
     .then(result => {
       if (result) {
         Todos.get().then(todos => {
-          res.json(todos);
+          res.json(todos.reverse());
         });
       } else {
         res.status(404).json({ message: "Failed to delete" });
@@ -57,7 +57,7 @@ route.put("/:id", (req, res) => {
 
   Todos.completed(id, { completed });
   Todos.get()
-    .then(todos => res.json(todos))
+    .then(todos => res.json(todos.reverse()))
     .catch(() => res.status(500).json({ message: "Server Error" }));
 });
 
@@ -65,7 +65,7 @@ route.post("/completed", (req, res) => {
   Todos.clearCompleted();
 
   Todos.get()
-    .then(todos => res.json(todos))
+    .then(todos => res.json(todos.reverse()))
     .catch(() => res.status(500).json({ message: "Server Error" }));
 });
 
